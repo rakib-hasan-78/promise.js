@@ -1,4 +1,5 @@
-    import { promiseGetRequest, xmlPromiseEditRequest, xmlPromisePostRequest } from "./customPromiselib.js";
+    import { promiseGetRequest, xmlPromiseDeleteRequest, xmlPromiseEditRequest, xmlPromisePostRequest } from "./customPromiselib.js";
+
     function displayData(data, id) {
         let output = '';
         data.forEach(data=>{
@@ -46,7 +47,7 @@
     postBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const newData = {
-            id: 16,
+            id: 8,
             name: "William Doe",
             age: 34,
             address: "45 DC  Ave, Moilapota",
@@ -125,3 +126,24 @@
     `;
     document.getElementById(id).innerHTML = output;
    }
+
+   const deleteBtn = document.getElementById('btn-delete');
+   const deletedID = 8;
+   deleteBtn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const url = `http://localhost:3000/users/${deletedID}`;
+    xmlPromiseDeleteRequest(url)
+        .then((message) => {
+            console.log(message);
+            return promiseGetRequest('http://localhost:3000/users')
+        })
+        .then((response) => {
+            displayData(response, 'data-info');
+            localStorage.setItem('user-data', JSON.stringify(response));
+        })
+        .catch(error=>{
+            console.error(error);
+            document.getElementById('data-info').innerHTML = error;
+        })
+   })
+

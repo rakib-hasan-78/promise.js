@@ -92,19 +92,6 @@
       "country_code": "GB"
     },
     {
-      "id": "8",
-      "name": "William Doe",
-      "age": 34,
-      "address": "45 DC  Ave, 6th division",
-      "country_code": "BD",
-      "state": "sylhet",
-      "email": "johndoe@example.com",
-      "contact_no": "+1-555-1234",
-      "profession": "Bangladesh Army",
-      "position": "liutenant colonel",
-      "unit": "Artillary"
-    },
-    {
       "id": "9",
       "name": "Carlos Silva",
       "age": 36,
@@ -181,32 +168,6 @@
       "address": "35 Medical St, Rome",
       "state": "Lazio",
       "country_code": "IT"
-    },
-    {
-      "id": "15",
-      "name": "Sara Ahmed",
-      "age": 30,
-      "profession": "Air Force Officer",
-      "position": "Lieutenant",
-      "unit": "Radar and Communications",
-      "email": "sara.ahmed@airforcebd.com",
-      "contact_no": "+880-171-9876543",
-      "address": "Dhaka Air Force Base, Dhaka",
-      "state": "Dhaka",
-      "country_code": "BD"
-    },
-    {
-      "id": 16,
-      "name": "William Doe",
-      "age": 34,
-      "address": "45 DC  Ave, Moilapota",
-      "country_code": "BD",
-      "state": "sylhet",
-      "email": "johndoe@example.com",
-      "contact_no": "+1-555-1234",
-      "profession": "shopkeeper",
-      "position": "assistant train",
-      "unit": "Station"
     }
   ]
 }

@@ -64,3 +64,27 @@ export function xmlPromiseEditRequest(url, data) {
         xhr.send(JSON.stringify(data));
     });
 };
+
+export function xmlPromiseDeleteRequest(url) {
+    return new Promise((resolve, reject)=>{
+        const xhr = new XMLHttpRequest();
+        xhr.open('DELETE', url);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200 || xhr.status === 204) {
+                    try {
+                        resolve(`Deleted Successfully!`)
+                    } catch (error) {
+                        reject(`ERROR: Data Already Deleted or \n ${error.message}`)
+                    }
+                } else {
+                    reject(`ERROR! ${xhr.status}`)
+                }
+            }
+        }
+        xhr.send();
+    })
+}
+
+
+
