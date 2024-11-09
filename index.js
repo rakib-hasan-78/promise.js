@@ -1,4 +1,4 @@
-    import { promiseGetRequest, xmlPromisePostRequest } from "./customPromiselib.js";
+    import { promiseGetRequest, xmlPromiseEditRequest, xmlPromisePostRequest } from "./customPromiselib.js";
     function displayData(data, id) {
         let output = '';
         data.forEach(data=>{
@@ -72,4 +72,56 @@
             document.getElementById('data-info').innerHTML = `<p style="color:red;">${error}</p>`;
         });
     });
-    
+
+   // edit button handler--->
+   const editBtn = document.getElementById('btn-update');
+   const newData = {
+    id: 8,
+    name: "William Doe",
+    age: 34,
+    address: "45 DC  Ave, 6th division",
+    country_code: "BD",
+    state: "sylhet",
+    email: "johndoe@example.com",
+    contact_no: "+1-555-1234",
+    profession: "Bangladesh Army",
+    position: "liutenant colonel",
+    unit: "Artillary"
+};
+   editBtn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const targetID = newData.id;
+    xmlPromiseEditRequest(`http://localhost:3000/users/${targetID}`, newData)
+        .then(() => {
+            return promiseGetRequest('http://localhost:3000/users');
+        })
+        .then((response) => {
+            editingData(response, 'data-info');
+            localStorage.setItem('user-data', JSON.stringify(response));
+        })
+        .catch(error=>{
+            console.error(`Error: Error Occured ! ${error}`);
+            document.getElementById('data-info').innerHTML = `<p style="color:red;">${error}</p>`;
+        })
+
+   })
+
+   function editingData(data, id) {
+     let output = '';
+     output += `
+     <ol>
+         <li>ID: ${data.id}</li>
+         <li>Name: ${data.name}</li>
+         <li>Age: ${data.age}</li>
+         <li>Address: ${data.address}</li>
+         <li>Country: ${data.country_code}</li>
+         <li>State: ${data.state}</li>
+         <li>Email Address: ${data.email}</li>
+         <li>Contact No: ${data.contact_no}</li>
+         <li>Profession: ${data.profession}</li>
+         <li>Position: ${data.position}</li>
+         <li>Unit: ${data.unit}</li>
+     </ol>
+    `;
+    document.getElementById(id).innerHTML = output;
+   }

@@ -41,3 +41,26 @@ export function xmlPromisePostRequest(url, data) {
         xhr.send(JSON.stringify(data));
     });
 }
+
+export function xmlPromiseEditRequest(url, data) {
+    return new Promise((resolve , reject)=>{
+        const xhr = new XMLHttpRequest();
+        xhr.open('PUT', url);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function(e) {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    try {
+                        let response = JSON.parse(xhr.response);
+                        resolve(response);
+                    } catch (error) {
+                        reject(`ERROR: ${error.message}`)
+                    }
+                } else {
+                    reject(`ERRO: Edit Request Failed \n ${xhr.status}`)
+                }
+            }
+        }
+        xhr.send(JSON.stringify(data));
+    });
+};
