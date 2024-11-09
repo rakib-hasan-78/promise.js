@@ -5,25 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="./index.css">
   </head>
-  <body class="min-vh-100 w-100 d-flex flex-column flex-wrap align-items-center justify-content-center align-content-center">
-    <div  class="w-100 d-flex flex-column justify-content-center">
-        <h1 class="text-center text-capitalize">promise Data!</h1>
-        <div  class="w-75 mx-auto d-flex justify-content-center align-items-center gap-4 py-2 px-3">
-            <button type="button" class="btn btn-primary text-capitalize" id="get-data">load data</button>
-            <button type="button" class="btn btn-info text-capitalize" id="post-data">post data</button>
-            <button type="button" class="btn btn-secondary text-capitalize" id="data-edit">edit data</button>
-            <button type="button" class="btn btn-danger text-capitalize"id="data-delete">delete data</button>
-        </div>
+  <body>
+    <div class="d-flex flex-wrap flex-column align-items-center justify-content-center py-4">
+      <h1 class="text-uppercase">data get edit post delete practice</h1>
+      <div class="d-flex my-4 align-items-center justify-content-center gap-4 w-50">
+        <button id="btn-load" class="btn btn-primary px-5 py-2" type="button">load</button>
+        <button id="btn-post" class="btn btn-primary px-5 py-2" type="button">Post</button>
+        <button id="btn-update" class="btn btn-info px-5 py-2" type="button">Edit</button><button id="btn-delete" class="btn btn-danger px-5 py-2" type="button">Delete</button>
+      </div>
     </div>
-    <section>
-        <main>
-            <div class="container">
-                <div id="user-data-section" class="d-flex align-items-center justify-content-around w-100 flex-wrap"></div>
-            </div>
-        </main>
-    </section>
+    <div id="data-info"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script type="module" src="./index.js"></script>
   </body>
+</html>

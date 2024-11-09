@@ -1,32 +1,75 @@
-    import { promiseGetRequest } from "./customPromiselib.js";
+    import { promiseGetRequest, xmlPromisePostRequest } from "./customPromiselib.js";
+    function displayData(data, id) {
+        let output = '';
+        data.forEach(data=>{
+            output += `
+            <ol>
+                <li>ID: ${data.id}</li>
+                <li>Name: ${data.name}</li>
+                <li>Age: ${data.age}</li>
+                <li>Address: ${data.address}</li>
+                <li>Country: ${data.country_code}</li>
+                <li>State: ${data.state}</li>
+                <li>Email Address: ${data.email}</li>
+                <li>Contact No: ${data.contact_no}</li>
+                <li>Profession: ${data.profession}</li>
+                <li>Position: ${data.position}</li>
+                <li>Unit: ${data.unit}</li>
+            </ol>
+        `;
+        });
+        document.getElementById(id).innerHTML = output;
+    }
 
-    const getBtn = document.getElementById('get-data');
-    getBtn.addEventListener('click', (e) => {
+    const userData = localStorage.getItem('user-data');
+    if (userData) {
+        try {
+            const parsedData = JSON.parse(userData);
+            displayData(parsedData, 'data-info');  // Display the data if valid
+        } catch (error) {
+            console.error("Error parsing saved data:", error);
+            localStorage.removeItem('user-data');  // Optionally clear invalid data from localStorage
+        }
+    }
+
+    const loadData = document.getElementById('btn-load');
+    loadData.addEventListener('click', (e)=>{
         e.preventDefault();
         promiseGetRequest('http://localhost:3000/users')
-            .then(response => {
-                let output = '';
-                response.forEach(data => {
-                    output += `
-                        <ol>
-                            <li>ID: ${data.id}</li>
-                            <li>Name: ${data.name}</li>
-                            <li>Age: ${data.age}</li>
-                            <li>Address: ${data.address}</li>
-                            <li>Country: ${data.country_code}</li>
-                            <li>State: ${data.state}</li>
-                            <li>Email Address: ${data.email}</li>
-                            <li>Contact No: ${data.contact_no}</li>
-                            <li>Profession: ${data.profession}</li>
-                            <li>Position: ${data.position}</li>
-                            <li>Unit: ${data.unit}</li>
-                        </ol>
-                    `;
-                });
-                document.getElementById('user-data-section').innerHTML = output;
-            })
-            .catch(error => {
-                console.error("Error occurred while fetching data:", error);
-                document.getElementById('user-data-section').innerHTML = `<p style="color:red;">${error}</p>`;
-            });
+        .then(response=>{
+            displayData(response, 'data-info');
+            localStorage.setItem('user-data', JSON.stringify(response));
+        })
+    })
+
+    const postBtn = document.getElementById('btn-post');
+    postBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const newData = {
+            id: 16,
+            name: "William Doe",
+            age: 34,
+            address: "45 DC  Ave, Moilapota",
+            country_code: "BD",
+            state: "sylhet",
+            email: "johndoe@example.com",
+            contact_no: "+1-555-1234",
+            profession: "shopkeeper",
+            position: "assistant train",
+            unit: "Station"
+        };
+    // Send POST request to add a new user
+    xmlPromisePostRequest('http://localhost:3000/users', newData)
+        .then(()=>{
+            return promiseGetRequest('http://localhost:3000/users');
+        })
+        .then(response=>{
+            displayData(response, 'data-info');
+            localStorage.setItem('user-data', JSON.stringify(response))
+        })
+        .catch(error => {
+            console.error("Error occurred:", error);  // Log any errors
+            document.getElementById('data-info').innerHTML = `<p style="color:red;">${error}</p>`;
+        });
     });
+    
